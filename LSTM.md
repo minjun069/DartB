@@ -15,6 +15,7 @@ RNN의 한 종류. 순서가 중요한 모든 데이터를 처리할 수 있는 
 4. 모델 구조와 패러미터: LSTM 레이어 개수, 은닉차원, 드랍아웃 등  
 5. 전처리 방식 ex: 가격 정규화, 로그변환, 이상치 제거 등
 
+[LSTM 구조.pdf](https://github.com/user-attachments/files/19646126/LSTM.pdf)
 
 ✅ LSTM 구조  
 LSTM Layer 수: 층이 여러 개 일수록 복잡한 패턴 학습 가능 하지만 과적합 가능성  
@@ -75,119 +76,15 @@ EX: 0.0001 → 0.001 → 0.01
 -피처 중요도 평가 모델 이용 (LightGBM 등 )  
 -SHAP 값 해석 (요즘 가장 많이 씀) (SHapley Additive exPlanations)
 
-```python
-import pandas as pd
-import numpy as np
 
-price = pd.read_csv("C:\\Users\\minju\\OneDrive\\바탕 화면\\다트비\\캐금스\\prices.csv")
-price_wltw = price[price['symbol']=='WLTW']
-price_wltw = price_wltw[['open','close','low','high','volume']]
-features = ['open', 'close', 'low', 'high', 'volume']
-price_wltw = price_wltw[features].values
+캐글_5d 만
+https://colab.research.google.com/drive/1iXNSGB3jdghKbYh2RDJwvedIzaQ7gEke
 
-X = []
-y = []
+수정 전
+https://colab.research.google.com/drive/1O1mgjZm0Cxp7YlPtL-dn7f_XZ9CnYJOK
+수정 후
+https://colab.research.google.com/drive/1rSVKu_p_55b6Bq7f1rBsy-kp6TyNGcJT
 
-seq_length = 30
-
-for i in range(len(price_wltw) - seq_length):
-    X.append(price_wltw[i:i+seq_length])
-    y.append(price_wltw[i+seq_length][1])
-
-X = np.array(X)
-y = np.array(y)
-
-X_tensor = torch.tensor(X, dtype=torch.float32)  # 입력
-y_tensor = torch.tensor(y, dtype=torch.float32)  # 정답
-y_tensor = y_tensor.unsqueeze(1)
-
-# 가장 간단한 LSTM 모델
-class SimpleLSTM(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size, num_layer):
-        super(SimpleLSTM, self).__init__()
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers=num_layer, batch_first=True)  # batch_first=True로 입력을 (batch, seq_len, input_size)로
-        self.fc = nn.Linear(hidden_size, output_size)  # LSTM의 출력 h_t를 받아서 최종 결과 출력
-        self.dropout = nn.Dropout(0.2)
-
-    def forward(self, x):
-        out, (h_n, c_n) = self.lstm(x)  # x: (batch_size, seq_len, input_size)
-        # out: (batch_size, seq_len, hidden_size)
-        # 보통 마지막 timestep의 출력을 사용
-        out = out[:, -1, :]  # 마지막 시점(timestep)의 hidden state만 가져오기
-        out = self.dropout(out)  # ⬅️ Dropout 적용 (hidden feature에)
-        out = self.fc(out)   # 최종 출력
-        return out
-
-# 하이퍼파라미터 설정
-input_size = 5     # 하루 입력 데이터 피처 수 (예: 시가, 고가, 저가, 종가, 거래량)
-hidden_size = 128   # LSTM hidden size
-output_size = 1    # 예측할 결과 크기 (예: 내일 종가)
-num_layers = 2
-# 모델 생성
-model = SimpleLSTM(input_size, hidden_size, output_size, num_layers)
-
-# 전체 데이터 크기
-n_samples = X.shape[0]
-
-# 80%를 train, 20%를 test로
-train_size = int(n_samples * 0.8)
-
-X_train = X_tensor[:train_size]
-y_train = y_tensor[:train_size]
-X_test = X_tensor[train_size:]
-y_test = y_tensor[train_size:]
-
-criterion = nn.MSELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.005)
-
-num_epochs = 500
-
-for epoch in range(num_epochs):
-    model.train()
-    # 1. 모델에 입력
-    output = model(X_train)
-    # 2. loss 계산
-    loss = criterion(output, y_train)
-    # 3. optimizer 초기화 (gradient를 0으로 초기화)
-    optimizer.zero_grad()
-    # 4. 역전파
-    loss.backward()
-    # 5. 가중치 업데이트
-    optimizer.step()
-    # 6. 출력
-    if (epoch + 1) % 25 == 0:
-        print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
-
-# 테스트 모드로 전환
-model.eval()
-
-# 테스트 데이터로 예측
-with torch.no_grad():  # 테스트할 때는 gradient 계산 X
-    test_output = model(X_test)
-    test_loss = criterion(test_output, y_test)
-
-print(f"Test Loss: {test_loss.item():.4f}")
-
-import matplotlib.pyplot as plt
-
-# 1. 모델 예측
-model.eval()
-with torch.no_grad():
-    y_pred = model(X_test).squeeze().cpu().numpy()  # (batch_size, 1) → (batch_size,)
-
-# 2. 실제 정답
-y_true = y_test.squeeze().cpu().numpy()
-
-# 3. 그리기
-plt.figure(figsize=(12,6))
-plt.plot(y_true, label='True Price')
-plt.plot(y_pred, label='Predicted Price')
-plt.title('Predicted vs True Price')
-plt.xlabel('Time')
-plt.ylabel('Price')
-plt.legend()
-plt.show()
-```
 ![image](https://github.com/user-attachments/assets/23aae696-c4f5-48e1-bf8a-f2fe662a484c)
 
 ![image](https://github.com/user-attachments/assets/8be14458-15a0-4d84-8a78-0eca40136395)
