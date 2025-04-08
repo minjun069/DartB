@@ -77,26 +77,37 @@ EX: 0.0001 → 0.001 → 0.01
 -SHAP 값 해석 (요즘 가장 많이 씀) (SHapley Additive exPlanations)
 
 
-캐글_5d 만
+캐글_5d 만  
 https://colab.research.google.com/drive/1iXNSGB3jdghKbYh2RDJwvedIzaQ7gEke
 
-수정 전
+첫 시도  
 https://colab.research.google.com/drive/1O1mgjZm0Cxp7YlPtL-dn7f_XZ9CnYJOK
-수정 후
+
+전반적인 차이 정리  
+
+|구분	|캐글	|내 코드|
+|---|---|---|
+|데이터 피처|	'Open','High','Low','Close', '5d_sma' |	기본 피처(Open/High/Low/Close/Volume)|
+|정규화	|Low 가격 기준 MinMaxScaler (0~2 범위)|	정규화 안함|
+|학습 구조	|DataLoader 사용, 배치 학습, Validation Loss 기준 모델 저장	|배치 학습 없음(또는 수동), 모델 저장 안함|
+|num_layers|	1층(설정 없음) |	2층 |
+|Dropout	|없음|0.2|
+|Hidden Latyer Size	| 64	| 128 |
+|모델 아키텍처	|LSTM hidden state → Linear → 출력	|LSTM 마지막 output → Linear → 출력|
+|출력 대상	|모든 피처(Open, High, Low, Close 등) 동시 예측	|종가(Close) 하나만 예측|
+|검증	|매 epoch 마다 valid loss 계산 후 모델 저장 | 검증 없음|
+|loss 계산	| batch마다 쌓아서 전체 loss 계산	| 전체 X_train 한꺼번에 |
+|overfitting 방지	| validation loss로 early stopping 준비 가능	| 확인 못 함|
+
+수정 후  
 https://colab.research.google.com/drive/1rSVKu_p_55b6Bq7f1rBsy-kp6TyNGcJT
 
-![image](https://github.com/user-attachments/assets/23aae696-c4f5-48e1-bf8a-f2fe662a484c)
-
-![image](https://github.com/user-attachments/assets/8be14458-15a0-4d84-8a78-0eca40136395)
-
-![image](https://github.com/user-attachments/assets/95a77428-7c04-42d5-808f-9b557a50eb4a)
-
-![image](https://github.com/user-attachments/assets/736d7260-946b-4ece-88e5-97c6a0a7c1e2)
-
+수정 전  
 ![image](https://github.com/user-attachments/assets/09532d34-157f-4e84-ae2c-ad3ee8f27bc0)
 
 ![image](https://github.com/user-attachments/assets/b053edd4-33e6-453e-9dad-57877f7cf1d3)
 
+수정 후  
 ![image](https://github.com/user-attachments/assets/9ab8ddef-b996-4a63-a5e0-1b1d721e261e)
 
 
