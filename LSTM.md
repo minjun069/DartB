@@ -76,6 +76,15 @@ EX: 0.0001 → 0.001 → 0.01
 -SHAP 값 해석 (요즘 가장 많이 씀) (SHapley Additive exPlanations)
 
 ```python
+import pandas as pd
+import numpy as np
+
+price = pd.read_csv("C:\\Users\\minju\\OneDrive\\바탕 화면\\다트비\\캐금스\\prices.csv")
+price_wltw = price[price['symbol']=='WLTW']
+price_wltw = price_wltw[['open','close','low','high','volume']]
+features = ['open', 'close', 'low', 'high', 'volume']
+price_wltw = price_wltw[features].values
+
 X = []
 y = []
 
