@@ -189,3 +189,17 @@ plt.legend()
 plt.show()
 ```
 ![image](https://github.com/user-attachments/assets/23aae696-c4f5-48e1-bf8a-f2fe662a484c)
+
+![image](https://github.com/user-attachments/assets/8be14458-15a0-4d84-8a78-0eca40136395)
+
+![image](https://github.com/user-attachments/assets/95a77428-7c04-42d5-808f-9b557a50eb4a)
+
+![image](https://github.com/user-attachments/assets/736d7260-946b-4ece-88e5-97c6a0a7c1e2)
+
+![image](https://github.com/user-attachments/assets/09532d34-157f-4e84-ae2c-ad3ee8f27bc0)
+
+![image](https://github.com/user-attachments/assets/b053edd4-33e6-453e-9dad-57877f7cf1d3)
+
+![image](https://github.com/user-attachments/assets/9ab8ddef-b996-4a63-a5e0-1b1d721e261e)
+
+
