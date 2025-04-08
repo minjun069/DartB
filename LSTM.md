@@ -89,14 +89,15 @@ https://colab.research.google.com/drive/1O1mgjZm0Cxp7YlPtL-dn7f_XZ9CnYJOK
 |---|---|---|
 |데이터 피처|	'Open','High','Low','Close', '5d_sma' |	기본 피처(Open/High/Low/Close/Volume)|
 |정규화	|Low 가격 기준 MinMaxScaler (0~2 범위)|	정규화 안함|
-|학습 구조	|DataLoader 사용, 배치 학습, Validation Loss 기준 모델 저장	|배치 학습 없음(또는 수동), 모델 저장 안함|
+|---|---|---|
 |num_layers|	1층(설정 없음) |	2층 |
 |Dropout	|없음|0.2|
 |Hidden Latyer Size	| 64	| 128 |
 |출력 대상	|모든 피처(Open, High, Low, Close 등) 동시 예측	|종가(Close) 하나만 예측|
-|검증	|매 epoch 마다 valid loss 계산 후 모델 저장 | 검증 없음|
-|loss 계산	| batch마다 쌓아서 전체 loss 계산	| 전체 X_train 한꺼번에 |
+|---|---|---|
+|학습 구조	|DataLoader 사용, 배치 학습, Validation Loss 기준 모델 저장	|배치 학습 없음(또는 수동), 모델 저장 안함|
 |overfitting 방지	| validation loss로 early stopping 준비 가능	| 확인 못 함|
+
 
 수정 후  
 https://colab.research.google.com/drive/1rSVKu_p_55b6Bq7f1rBsy-kp6TyNGcJT
