@@ -66,8 +66,8 @@ EX: 0.0001 → 0.001 → 0.01
 
 ✅ LSTM 주가 예측 시 주류 세팅  
 -입력: 시가, 고가, 저가, 종가, 거래량 + MA5, MA10, MA20 / RSI / MACD / 볼린저 밴드 / 거시경제지표(금리, 환율, VIX, 금 등) / 뉴스 스코어  
--시퀀스 길이: 60~120일  
--모델 구조 : 2층, hidden = 128~256, droupout 0.2~0.3, batchnorm 또는 layernorm 추가, bidirectional LSTM 사용하기도 함  
+-시퀀스 길이: 60 ~ 120일  
+-모델 구조 : 2층, hidden = 128~256, droupout 0.2 ~ 0.3, batchnorm 또는 layernorm 추가, bidirectional LSTM 사용하기도 함  
 -타겟: 1일 뒤 뿐 아니라 5일 뒤 10일 뒤 등 다중 스텝 예측  
 -학습 설정: AdamW, ReduceLROnPlateau, 회귀 시 MSE, 분류 시 CrossEntropy, EarlyStopping: Validation loss 개선 안 될 경우
 
