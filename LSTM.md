@@ -93,7 +93,6 @@ https://colab.research.google.com/drive/1O1mgjZm0Cxp7YlPtL-dn7f_XZ9CnYJOK
 |num_layers|	1층(설정 없음) |	2층 |
 |Dropout	|없음|0.2|
 |Hidden Latyer Size	| 64	| 128 |
-|모델 아키텍처	|LSTM hidden state → Linear → 출력	|LSTM 마지막 output → Linear → 출력|
 |출력 대상	|모든 피처(Open, High, Low, Close 등) 동시 예측	|종가(Close) 하나만 예측|
 |검증	|매 epoch 마다 valid loss 계산 후 모델 저장 | 검증 없음|
 |loss 계산	| batch마다 쌓아서 전체 loss 계산	| 전체 X_train 한꺼번에 |
