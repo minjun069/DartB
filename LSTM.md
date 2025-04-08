@@ -188,3 +188,4 @@ plt.ylabel('Price')
 plt.legend()
 plt.show()
 ```
+![image](https://github.com/user-attachments/assets/23aae696-c4f5-48e1-bf8a-f2fe662a484c)
