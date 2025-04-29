@@ -1,3 +1,8 @@
+Logistic Regression의 개념  
+: feature 공간 상에 초평면을 그어서 데이터를 분리하고,  
+그 초평면으로부터의 거리(선형 조합 값을 sigmoid 변환한 값)를 확률로 변환하는 모델
+
+
 LogisticRegression 모델의 패러미터
 
 ```python
