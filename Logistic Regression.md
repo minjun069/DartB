@@ -42,3 +42,8 @@ RFE vs L1
 ![image](https://github.com/user-attachments/assets/fe956f55-ccf6-4335-9921-6c5dc1d85393)
 
 
+![image](https://github.com/user-attachments/assets/86c80b62-357f-4596-af8b-cb31fb7fb395)  
+이미 alpha formula를 통해 비선형적, 조합적 특성 반영 중  
+threshold도 반영  
+
+=> 다항 로지스틱 회귀로 강한 상승, 강한 하락, 약한 상승, 약한 하락, 유지 등 시도!
