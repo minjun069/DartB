@@ -1,3 +1,7 @@
+참고
+https://www.kaggle.com/code/minjun0609/stock-price-prediction-using-xgboost-prophet-arima/edit
+https://www.kaggle.com/code/mtszkw/xgboost-for-stock-trend-prices-prediction
+
 로지스틱 회귀와 XGBoost 비교
 
 ![image](https://github.com/user-attachments/assets/5b24fed2-b9b3-486d-b229-e94a99ef8cf4)
